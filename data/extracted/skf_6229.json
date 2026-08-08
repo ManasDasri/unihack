@@ -1,0 +1,116 @@
+{
+  "product_id": {
+    "value": "6229",
+    "confidence": "high",
+    "source_snippet": "6229"
+  },
+  "category": {
+    "value": "seal",
+    "confidence": "high",
+    "source_snippet": "Radial shaft seals"
+  },
+  "common": {
+    "name": {
+      "value": "CRWA5",
+      "confidence": "high",
+      "source_snippet": "Seal design: CRWA5"
+    },
+    "manufacturer": {
+      "value": "SKF",
+      "confidence": "high",
+      "source_snippet": "SKF"
+    },
+    "part_number": {
+      "value": "6229",
+      "confidence": "high",
+      "source_snippet": "6229"
+    },
+    "description": {
+      "value": "Radial shaft seal with metal case, SKF Wave lip and auxiliary, contacting lip, for oil or grease",
+      "confidence": "high",
+      "source_snippet": "Radial shaft seal with metal case, SKF Wave lip and auxiliary, contacting lip, for oil or grease"
+    }
+  },
+  "attributes": {
+    "bore_diameter_mm": {
+      "value": 28.55,
+      "confidence": "high",
+      "source_snippet": "Housing bore diameter: 28.55 mm"
+    },
+    "outer_diameter_mm": {
+      "value": null,
+      "confidence": "low",
+      "source_snippet": null
+    },
+    "width_mm": {
+      "value": 9.53,
+      "confidence": "high",
+      "source_snippet": "Seal width: 9.53 mm"
+    },
+    "dynamic_load_rating_kn": {
+      "value": null,
+      "confidence": "low",
+      "source_snippet": null
+    },
+    "static_load_rating_kn": {
+      "value": null,
+      "confidence": "low",
+      "source_snippet": null
+    },
+    "reference_speed_rpm": {
+      "value": 3838,
+      "confidence": "high",
+      "source_snippet": "Rotational speed: 3 838 r/min"
+    },
+    "limiting_speed_rpm": {
+      "value": 3838,
+      "confidence": "high",
+      "source_snippet": "Limiting speed: 3 838 r/min"
+    },
+    "material": {
+      "value": "Nitrile rubber (NBR)",
+      "confidence": "high",
+      "source_snippet": "Nitrile rubber (NBR)"
+    },
+    "cage_type": {
+      "value": null,
+      "confidence": "low",
+      "source_snippet": null
+    },
+    "sealing": {
+      "value": "Metal-cased with sealant coating on the outside diameter",
+      "confidence": "high",
+      "source_snippet": "Metal-cased with sealant coating on the outside diameter"
+    },
+    "radial_internal_clearance": {
+      "value": null,
+      "confidence": "low",
+      "source_snippet": null
+    },
+    "carbon_footprint_kg_co2e": {
+      "value": null,
+      "confidence": "low",
+      "source_snippet": null
+    },
+    "performance_class": {
+      "value": null,
+      "confidence": "low",
+      "source_snippet": null
+    },
+    "net_weight_kg": {
+      "value": 0.008,
+      "confidence": "high",
+      "source_snippet": "Product net weight: 0.008 kg"
+    },
+    "eclass_code": {
+      "value": "23-07-08-01",
+      "confidence": "high",
+      "source_snippet": "eClass code: 23-07-08-01"
+    },
+    "unspsc_code": {
+      "value": "31181602",
+      "confidence": "high",
+      "source_snippet": "UNSPSC code: 31181602"
+    }
+  }
+}

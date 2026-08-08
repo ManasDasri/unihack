@@ -1,0 +1,116 @@
+{
+  "product_id": {
+    "value": "627",
+    "confidence": "high",
+    "source_snippet": "627 - Deep groove ball bearings | SKF"
+  },
+  "category": {
+    "value": "bearing",
+    "confidence": "high",
+    "source_snippet": "Deep groove ball bearing"
+  },
+  "common": {
+    "name": {
+      "value": "Deep groove ball bearings",
+      "confidence": "high",
+      "source_snippet": "Deep groove ball bearings"
+    },
+    "manufacturer": {
+      "value": "SKF",
+      "confidence": "high",
+      "source_snippet": "SKF"
+    },
+    "part_number": {
+      "value": "627",
+      "confidence": "high",
+      "source_snippet": "productid-627"
+    },
+    "description": {
+      "value": "Single row deep groove ball bearings are particularly versatile, have low friction and are optimized for low noise and low vibration, which enables high rotational speeds.",
+      "confidence": "high",
+      "source_snippet": "Single row deep groove ball bearings are particularly versatile, have low friction and are optimized for low noise and low vibration, which enables high rotational speeds."
+    }
+  },
+  "attributes": {
+    "bore_diameter_mm": {
+      "value": 7,
+      "confidence": "high",
+      "source_snippet": "7 mm Bore diameter"
+    },
+    "outer_diameter_mm": {
+      "value": 22,
+      "confidence": "high",
+      "source_snippet": "22 mm Outside diameter"
+    },
+    "width_mm": {
+      "value": 7,
+      "confidence": "high",
+      "source_snippet": "7 mm Width"
+    },
+    "dynamic_load_rating_kn": {
+      "value": 3.45,
+      "confidence": "high",
+      "source_snippet": "3.45 kN Basic dynamic load rating"
+    },
+    "static_load_rating_kn": {
+      "value": 1.37,
+      "confidence": "high",
+      "source_snippet": "1.37 kN Basic static load rating"
+    },
+    "reference_speed_rpm": {
+      "value": 70000,
+      "confidence": "high",
+      "source_snippet": "70 000 r/min Reference speed"
+    },
+    "limiting_speed_rpm": {
+      "value": 45000,
+      "confidence": "high",
+      "source_snippet": "45 000 r/min Limiting speed"
+    },
+    "material": {
+      "value": "Bearing steel",
+      "confidence": "high",
+      "source_snippet": "Bearing steel Material, bearing"
+    },
+    "cage_type": {
+      "value": "Sheet metal",
+      "confidence": "high",
+      "source_snippet": "Sheet metal Cage"
+    },
+    "sealing": {
+      "value": "Without",
+      "confidence": "high",
+      "source_snippet": "Without Sealing"
+    },
+    "radial_internal_clearance": {
+      "value": "CN",
+      "confidence": "high",
+      "source_snippet": "CN Radial internal clearance"
+    },
+    "carbon_footprint_kg_co2e": {
+      "value": 0.04,
+      "confidence": "high",
+      "source_snippet": "0.04 kg CO e Indicative carbon footprint for new product"
+    },
+    "performance_class": {
+      "value": "SKF Explorer",
+      "confidence": "high",
+      "source_snippet": "SKF Explorer SKF performance class"
+    },
+    "net_weight_kg": {
+      "value": 0.0121,
+      "confidence": "high",
+      "source_snippet": "0.0121 kg Product net weight"
+    },
+    "eclass_code": {
+      "value": "23-05-08-01",
+      "confidence": "high",
+      "source_snippet": "23-05-08-01 eClass code"
+    },
+    "unspsc_code": {
+      "value": "31171504",
+      "confidence": "high",
+      "source_snippet": "31171504 UNSPSC code"
+    }
+  }
+}

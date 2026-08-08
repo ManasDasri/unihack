@@ -19,6 +19,7 @@
     "cage_type": "string",
     "sealing": "string",
     "radial_internal_clearance": "string",
+    "carbon_footprint_kg_co2e": "number",
     "performance_class": "string",
     "net_weight_kg": "number",
     "eclass_code": "string",

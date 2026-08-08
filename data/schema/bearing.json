@@ -1,0 +1,27 @@
+{
+  "product_id": "string (generated UUID)",
+  "category": "bearing",
+  "common": {
+    "name": "string",
+    "manufacturer": "string",
+    "part_number": "string",
+    "description": "string"
+  },
+  "attributes": {
+    "bore_diameter_mm": "number",
+    "outer_diameter_mm": "number",
+    "width_mm": "number",
+    "dynamic_load_rating_kn": "number",
+    "static_load_rating_kn": "number",
+    "reference_speed_rpm": "number",
+    "limiting_speed_rpm": "number",
+    "material": "string",
+    "cage_type": "string",
+    "sealing": "string",
+    "radial_internal_clearance": "string",
+    "performance_class": "string",
+    "net_weight_kg": "number",
+    "eclass_code": "string",
+    "unspsc_code": "string"
+  }
+}

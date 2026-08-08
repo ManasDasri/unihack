@@ -35,82 +35,82 @@
     "bore_diameter_mm": {
       "value": 7,
       "confidence": "high",
-      "source_snippet": "7 mm Bore diameter"
+      "source_snippet": "Bore diameter 7 mm"
     },
     "outer_diameter_mm": {
       "value": 22,
       "confidence": "high",
-      "source_snippet": "22 mm Outside diameter"
+      "source_snippet": "Outside diameter 22 mm"
     },
     "width_mm": {
       "value": 7,
       "confidence": "high",
-      "source_snippet": "7 mm Width"
+      "source_snippet": "Width 7 mm"
     },
     "dynamic_load_rating_kn": {
       "value": 3.45,
       "confidence": "high",
-      "source_snippet": "3.45 kN Basic dynamic load rating"
+      "source_snippet": "Basic dynamic load rating 3.45 kN"
     },
     "static_load_rating_kn": {
       "value": 1.37,
       "confidence": "high",
-      "source_snippet": "1.37 kN Basic static load rating"
+      "source_snippet": "Basic static load rating 1.37 kN"
     },
     "reference_speed_rpm": {
       "value": 70000,
       "confidence": "high",
-      "source_snippet": "70 000 r/min Reference speed"
+      "source_snippet": "Reference speed 70 000 r/min"
     },
     "limiting_speed_rpm": {
       "value": 45000,
       "confidence": "high",
-      "source_snippet": "45 000 r/min Limiting speed"
+      "source_snippet": "Limiting speed 45 000 r/min"
     },
     "material": {
       "value": "Bearing steel",
       "confidence": "high",
-      "source_snippet": "Bearing steel Material, bearing"
+      "source_snippet": "Material, bearing Bearing steel"
     },
     "cage_type": {
       "value": "Sheet metal",
       "confidence": "high",
-      "source_snippet": "Sheet metal Cage"
+      "source_snippet": "Cage Sheet metal"
     },
     "sealing": {
       "value": "Without",
       "confidence": "high",
-      "source_snippet": "Without Sealing"
+      "source_snippet": "Sealing Without"
     },
     "radial_internal_clearance": {
       "value": "CN",
       "confidence": "high",
-      "source_snippet": "CN Radial internal clearance"
+      "source_snippet": "Radial internal clearance CN"
     },
     "carbon_footprint_kg_co2e": {
       "value": 0.04,
       "confidence": "high",
-      "source_snippet": "0.04 kg CO e Indicative carbon footprint for new product"
+      "source_snippet": "Indicative carbon footprint for new product 0.04 kg CO e"
     },
     "performance_class": {
       "value": "SKF Explorer",
       "confidence": "high",
-      "source_snippet": "SKF Explorer SKF performance class"
+      "source_snippet": "SKF performance class SKF Explorer"
     },
     "net_weight_kg": {
       "value": 0.0121,
       "confidence": "high",
-      "source_snippet": "0.0121 kg Product net weight"
+      "source_snippet": "Product net weight 0.0121 kg"
     },
     "eclass_code": {
       "value": "23-05-08-01",
       "confidence": "high",
-      "source_snippet": "23-05-08-01 eClass code"
+      "source_snippet": "eClass code 23-05-08-01"
     },
     "unspsc_code": {
       "value": "31171504",
       "confidence": "high",
-      "source_snippet": "31171504 UNSPSC code"
+      "source_snippet": "UNSPSC code 31171504"
     }
   }
 }

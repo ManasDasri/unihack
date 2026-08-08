@@ -32,8 +32,8 @@ def classify_category(raw_text):
     "reasoning": "one short sentence explaining why"
 }}
 """
-    response = client.chat.completion.create(
-        model= "llama3.3-70b-versatile",
+    response = client.chat.completions.create(
+        model= "llama-3.3-70b-versatile",
         messages=[{"role": "user", "content": prompt}],
         temperature=0,
     )

@@ -1,12 +1,14 @@
 {
   "product_id": "string (generated UUID)",
   "category": "bearing",
+
   "common": {
     "name": "string",
     "manufacturer": "string",
     "part_number": "string",
     "description": "string"
   },
+
   "attributes": {
     "bore_diameter_mm": "number",
     "outer_diameter_mm": "number",
@@ -24,5 +26,9 @@
     "net_weight_kg": "number",
     "eclass_code": "string",
     "unspsc_code": "string"
+  },
+
+  "derived": {
+    "dimension_summary": "string"
   }
 }

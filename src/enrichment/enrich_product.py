@@ -92,17 +92,14 @@ def enrich_product(product):
 
     enriched = copy.deepcopy(product)
 
-    attributes = enriched.setdefault(
-        "attributes",
-        {},
-    )
+    derived = enriched.setdefault("derived", {})
 
     dimension_summary = derive_dimension_summary(
         enriched
     )
 
     if dimension_summary is not None:
-        attributes["dimension_summary"] = dimension_summary
+        derived["dimension_summary"] = dimension_summary
 
     return enriched
 
@@ -113,20 +110,18 @@ def build_enrichment_report(
 ):
     """Describe exactly what the enrichment stage added."""
 
-    original_attributes = original_product.get(
-        "attributes",
+    original_derived = original_product.get(
+        "derived",
         {},
     )
-
-    enriched_attributes = enriched_product.get(
-        "attributes",
+    enriched_derived = enriched_product.get(
+        "derived",
         {},
     )
-
     added_fields = []
 
-    for field_name in enriched_attributes:
-        if field_name not in original_attributes:
+    for field_name in enriched_derived:
+        if field_name not in original_derived:
             added_fields.append(field_name)
 
     return {
@@ -171,7 +166,7 @@ if __name__ == "__main__":
     print(
         json.dumps(
             enriched_product.get(
-                "attributes",
+                "derived",
                 {},
             ),
             indent=2,

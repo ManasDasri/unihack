@@ -1,116 +1,136 @@
 {
-  "product_id": {
-    "value": "6201",
-    "confidence": "high",
-    "source_snippet": "6201"
-  },
-  "category": {
-    "value": "bearing",
-    "confidence": "high",
-    "source_snippet": "Deep groove ball bearing"
-  },
+  "product_id": "3f9c2d1e-8b4a-4f6a-9c2e-1d5f6a7b8c9d",
+  "category": "bearing",
   "common": {
     "name": {
-      "value": "6201 - Deep groove ball bearings",
+      "value": "6201 Deep groove ball bearing",
       "confidence": "high",
-      "source_snippet": "6201 - Deep groove ball bearings | SKF"
+      "source_snippet": "6201\n     Deep groove ball bearing",
+      "source_page": 1
     },
     "manufacturer": {
       "value": "SKF",
       "confidence": "high",
-      "source_snippet": "SKF"
+      "source_snippet": "6201 - Deep groove ball bearings | SKF",
+      "source_page": 1
     },
     "part_number": {
       "value": "6201",
       "confidence": "high",
-      "source_snippet": "6201"
+      "source_snippet": "6201 - Deep groove ball bearings | SKF",
+      "source_page": 1
     },
     "description": {
       "value": "Single row deep groove ball bearings are particularly versatile, have low friction and are optimized for low noise and low vibration, which enables high rotational speeds.",
-      "confidence": "high",
-      "source_snippet": "Single row deep groove ball bearings are particularly versatile, have low friction and are optimized for low noise and low vibration, which enables high rotational speeds."
+      "confidence": "medium",
+      "source_snippet": "Single row deep groove ball bearings are particularly versatile, have low friction and are optimized for low noise and low vibration, which enables high rotational speeds.",
+      "source_page": 1
     }
   },
   "attributes": {
     "bore_diameter_mm": {
       "value": 12,
       "confidence": "high",
-      "source_snippet": "12 mm"
+      "source_snippet": "Bore diameter                                                    12 mm",
+      "source_page": 2
     },
     "outer_diameter_mm": {
       "value": 32,
       "confidence": "high",
-      "source_snippet": "32 mm"
+      "source_snippet": "Outside diameter                                           32 mm",
+      "source_page": 2
     },
     "width_mm": {
       "value": 10,
       "confidence": "high",
-      "source_snippet": "10 mm"
+      "source_snippet": "Width                                                           10 mm",
+      "source_page": 2
     },
     "dynamic_load_rating_kn": {
       "value": 7.28,
       "confidence": "high",
-      "source_snippet": "7.28 kN"
+      "source_snippet": "Basic dynamic load rating                                               7.28 kN",
+      "source_page": 2
     },
     "static_load_rating_kn": {
       "value": 3.1,
       "confidence": "high",
-      "source_snippet": "3.1 kN"
+      "source_snippet": "Basic static load rating                                                      3.1 kN",
+      "source_page": 2
     },
     "reference_speed_rpm": {
       "value": 50000,
       "confidence": "high",
-      "source_snippet": "50 000 r/min"
+      "source_snippet": "Reference speed                                            50 000 r/min",
+      "source_page": 2
     },
     "limiting_speed_rpm": {
       "value": 32000,
       "confidence": "high",
-      "source_snippet": "32 000 r/min"
+      "source_snippet": "Limiting speed                                             32 000 r/min",
+      "source_page": 2
     },
     "material": {
       "value": "Bearing steel",
       "confidence": "high",
-      "source_snippet": "Bearing steel"
+      "source_snippet": "Material, bearing                                                    Bearing steel",
+      "source_page": 2
     },
     "cage_type": {
       "value": "Sheet metal",
       "confidence": "high",
-      "source_snippet": "Sheet metal"
+      "source_snippet": "Cage                                                           Sheet metal",
+      "source_page": 2
     },
     "sealing": {
       "value": "Without",
       "confidence": "high",
-      "source_snippet": "Without"
+      "source_snippet": "Sealing                                                           Without",
+      "source_page": 2
     },
     "radial_internal_clearance": {
       "value": "CN",
       "confidence": "high",
-      "source_snippet": "CN"
+      "source_snippet": "Radial internal clearance                                CN",
+      "source_page": 2
     },
     "carbon_footprint_kg_co2e": {
       "value": 0.13,
       "confidence": "high",
-      "source_snippet": "0.13 kg CO e"
+      "source_snippet": "Indicative carbon footprint for new product                              0.13 kg CO 2 e",
+      "source_page": 2
     },
     "performance_class": {
       "value": "SKF Explorer",
       "confidence": "high",
-      "source_snippet": "SKF Explorer"
+      "source_snippet": "SKF performance class                                      SKF Explorer",
+      "source_page": 2
     },
     "net_weight_kg": {
       "value": 0.0354,
       "confidence": "high",
-      "source_snippet": "0.0354 kg"
+      "source_snippet": "Product net weight                                               0.0354 kg",
+      "source_page": 2
     },
     "eclass_code": {
       "value": "23-05-08-01",
       "confidence": "high",
-      "source_snippet": "23-05-08-01"
+      "source_snippet": "eClass code                                                      23-05-08-01",
+      "source_page": 2
     },
     "unspsc_code": {
       "value": "31171504",
       "confidence": "high",
-      "source_snippet": "31171504"
+      "source_snippet": "UNSPSC code                                                   31171504",
+      "source_page": 2
+    }
+  },
+  "derived": {
+    "dimension_summary": {
+      "value": "Bore Ø12 mm, Outer Ø32 mm, Width 10 mm",
+      "confidence": "medium",
+      "source_snippet": "Bore diameter                                                    12 mm\nOutside diameter                                           32 mm\nWidth                                                           10 mm",
+      "source_page": 2
     }
   }
 }

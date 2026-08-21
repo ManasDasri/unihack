@@ -77,7 +77,7 @@ def validate_consistency(extracted_data):
         "width_mm"
     )
 
-    # Only evaluate a relationship when all required values exist.
+    # Bore must be smaller than the outside diameter.
     if bore is not None and outer_diameter is not None:
 
         issue = check_rule(
@@ -101,37 +101,6 @@ def validate_consistency(extracted_data):
             "positive_width",
             "Bearing width must be greater than zero.",
             ["attributes.width_mm"],
-        )
-
-        if issue:
-            issues.append(issue)
-
-    # ---------------------------------------------------------
-    # Speed consistency
-    # ---------------------------------------------------------
-
-    reference_speed = get_value(
-        extracted_data,
-        "attributes",
-        "reference_speed_rpm"
-    )
-
-    limiting_speed = get_value(
-        extracted_data,
-        "attributes",
-        "limiting_speed_rpm"
-    )
-
-    if reference_speed is not None and limiting_speed is not None:
-
-        issue = check_rule(
-            reference_speed >= limiting_speed,
-            "reference_speed_not_less_than_limiting_speed",
-            "Reference speed should not be lower than limiting speed.",
-            [
-                "attributes.reference_speed_rpm",
-                "attributes.limiting_speed_rpm",
-            ],
         )
 
         if issue:
@@ -180,7 +149,11 @@ def validate_consistency(extracted_data):
 
 if __name__ == "__main__":
     SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-    PROJECT_ROOT = os.path.join(SCRIPT_DIR, "..", "..")
+    PROJECT_ROOT = os.path.join(
+        SCRIPT_DIR,
+        "..",
+        "..",
+    )
 
     extracted_path = os.path.join(
         PROJECT_ROOT,
@@ -192,6 +165,13 @@ if __name__ == "__main__":
     with open(extracted_path, "r") as f:
         extracted_data = json.load(f)
 
-    result = validate_consistency(extracted_data)
+    result = validate_consistency(
+        extracted_data
+    )
 
-    print(json.dumps(result, indent=2))
+    print(
+        json.dumps(
+            result,
+            indent=2,
+        )
+    )

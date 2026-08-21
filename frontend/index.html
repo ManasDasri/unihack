@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Product Intelligence — Industrial Commerce</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #0f1117;
+  --surface: #1a1d27;
+  --surface2: #21263a;
+  --border: #2a2f45;
+  --text: #e2e8f0;
+  --text-muted: #7a8499;
+  --accent: #3b82f6;
+  --accent-dim: #1d4ed8;
+  --green: #22c55e;
+  --green-dim: #166534;
+  --yellow: #f59e0b;
+  --yellow-dim: #78350f;
+  --red: #ef4444;
+  --red-dim: #7f1d1d;
+  --radius: 6px;
+}
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.5;
+  min-height: 100vh;
+}
+
+header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 0 32px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.logo {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.logo span { color: var(--accent); }
+
+nav { display: flex; gap: 4px; margin-left: auto; }
+
+.nav-btn {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 6px 14px;
+  border-radius: var(--radius);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.nav-btn:hover { background: var(--surface2); color: var(--text); }
+.nav-btn.active { background: var(--surface2); color: var(--text); }
+
+main { max-width: 1280px; margin: 0 auto; padding: 32px; }
+
+.view { display: none; }
+.view.active { display: block; }
+
+.pipeline-grid {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+}
+
+.panel-title {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+}
+
+.product-selector { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+
+.product-btn {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: var(--radius);
+  padding: 10px 14px;
+  text-align: left;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.product-btn:hover { border-color: var(--accent); }
+.product-btn.selected { border-color: var(--accent); background: #1e2d4a; }
+
+.product-meta { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+
+.run-btn {
+  width: 100%;
+  background: var(--accent);
+  border: none;
+  color: white;
+  border-radius: var(--radius);
+  padding: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 12px;
+}
+
+.run-btn:hover { background: var(--accent-dim); }
+.run-btn:disabled { background: var(--border); color: var(--text-muted); cursor: not-allowed; }
+
+.contaminate-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 8px 0;
+  border-top: 1px solid var(--border);
+}
+
+.contaminate-toggle input { cursor: pointer; accent-color: var(--red); }
+
+.status-bar {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 10px 14px;
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 12px;
+}
+
+.status-bar.running { color: var(--accent); }
+.status-bar.done { color: var(--green); }
+.status-bar.error { color: var(--red); }
+
+.scores-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.score-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+}
+
+.score-label {
+  font-size: 11px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 6px;
+}
+
+.score-value { font-size: 22px; font-weight: 700; }
+.score-value.green { color: var(--green); }
+.score-value.yellow { color: var(--yellow); }
+.score-value.red { color: var(--red); }
+
+.decision-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.decision-badge.verified { background: var(--green-dim); color: var(--green); }
+.decision-badge.review { background: var(--yellow-dim); color: var(--yellow); }
+
+.validation-list { display: flex; flex-direction: column; gap: 2px; }
+
+.validation-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  padding: 9px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.validation-row:last-child { border-bottom: none; }
+.check-icon { font-size: 14px; width: 20px; flex-shrink: 0; }
+.check-label { flex: 1; }
+.check-status { font-size: 11px; font-weight: 600; }
+.check-status.pass { color: var(--green); }
+.check-status.fail { color: var(--red); }
+
+.validation-error {
+  font-size: 11px;
+  color: var(--red);
+  padding: 3px 30px;
+  font-family: monospace;
+}
+
+.attr-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+
+.attr-table th {
+  text-align: left;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+.attr-table td {
+  padding: 9px 12px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+
+.attr-table tr:last-child td { border-bottom: none; }
+
+.confidence-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.confidence-badge.high { background: #14532d; color: var(--green); }
+.confidence-badge.medium { background: var(--yellow-dim); color: var(--yellow); }
+.confidence-badge.low { background: var(--red-dim); color: var(--red); }
+
+.method-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 11px;
+  background: var(--surface2);
+  color: var(--text-muted);
+}
+
+.method-badge.retrieved { background: #1e2d4a; color: var(--accent); }
+
+.evidence-btn {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  border-radius: var(--radius);
+  padding: 3px 10px;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.evidence-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+.drawer-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 100;
+}
+
+.drawer-overlay.open { display: flex; align-items: flex-end; justify-content: flex-end; }
+
+.drawer {
+  background: var(--surface);
+  border-left: 1px solid var(--border);
+  width: 420px;
+  height: 100vh;
+  overflow-y: auto;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.drawer-header { display: flex; align-items: center; justify-content: space-between; }
+.drawer-title { font-size: 16px; font-weight: 600; }
+.close-btn { background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 22px; line-height: 1; }
+
+.evidence-block {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px;
+}
+
+.evidence-block-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.evidence-snippet {
+  font-family: monospace;
+  font-size: 12px;
+  color: var(--text);
+  white-space: pre-wrap;
+  word-break: break-word;
+  background: var(--bg);
+  border-radius: 4px;
+  padding: 10px;
+  border: 1px solid var(--border);
+}
+
+.kv-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 7px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 13px;
+  gap: 12px;
+}
+
+.kv-row:last-child { border-bottom: none; }
+.kv-key { color: var(--text-muted); flex-shrink: 0; }
+.kv-val { font-weight: 500; text-align: right; word-break: break-all; }
+
+.catalog-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+
+.catalog-table th {
+  text-align: left;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.catalog-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: middle;
+}
+
+.catalog-table tr:last-child td { border-bottom: none; }
+.catalog-table tbody tr:hover td { background: var(--surface2); }
+
+.run-catalog-btn {
+  background: var(--accent);
+  border: none;
+  color: white;
+  border-radius: var(--radius);
+  padding: 8px 20px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.run-catalog-btn:hover { background: var(--accent-dim); }
+.run-catalog-btn:disabled { background: var(--border); color: var(--text-muted); cursor: not-allowed; }
+
+.score-bar-wrap { display: flex; align-items: center; gap: 10px; }
+
+.score-bar {
+  flex: 1;
+  height: 6px;
+  background: var(--border);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.score-bar-fill { height: 100%; background: var(--green); border-radius: 3px; }
+.score-bar-fill.yellow { background: var(--yellow); }
+.score-bar-fill.red { background: var(--red); }
+
+.catalog-status { margin-top: 12px; font-size: 12px; color: var(--text-muted); min-height: 20px; }
+
+.section { margin-bottom: 20px; }
+
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.section-title { font-size: 14px; font-weight: 600; }
+
+.contaminate-notice {
+  background: #3b0d0d;
+  border: 1px solid var(--red);
+  border-radius: var(--radius);
+  padding: 12px 14px;
+  font-size: 12px;
+  color: var(--red);
+  margin-bottom: 16px;
+}
+
+.empty-state { text-align: center; color: var(--text-muted); padding: 60px 0; font-size: 13px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo"><span>Product Intelligence</span> &middot; Industrial Commerce</div>
+  <nav>
+    <button class="nav-btn active" onclick="showView('pipeline', this)">Pipeline</button>
+    <button class="nav-btn" onclick="showView('catalog', this)">Catalog</button>
+  </nav>
+</header>
+
+<main>
+  <div id="view-pipeline" class="view active">
+    <div class="pipeline-grid">
+      <div>
+        <div class="panel">
+          <div class="panel-title">Select Product</div>
+          <div class="product-selector" id="product-selector">
+            <div style="color:var(--text-muted);font-size:12px;">Loading&hellip;</div>
+          </div>
+          <button class="run-btn" id="run-btn" onclick="runPipeline()" disabled>
+            Run Intelligence Pipeline
+          </button>
+          <label class="contaminate-toggle">
+            <input type="checkbox" id="contaminate-chk" onchange="onContaminateChange()">
+            <span>Wrong-product evidence demo</span>
+          </label>
+          <div id="contaminate-hint" style="font-size:11px;color:var(--red);padding:5px 0 0;display:none;">
+            Evidence will be sourced from the other product's document.
+          </div>
+          <div class="status-bar" id="status-bar">Select a product to begin.</div>
+        </div>
+      </div>
+      <div id="results-pane">
+        <div class="empty-state">Select a product and run the pipeline to view results.</div>
+      </div>
+    </div>
+  </div>
+
+  <div id="view-catalog" class="view">
+    <div class="section-header">
+      <div class="section-title">Product Catalog &mdash; Intelligence Engine</div>
+      <button class="run-catalog-btn" id="catalog-run-btn" onclick="runCatalog()">Process All Products</button>
+    </div>
+    <div class="panel">
+      <table class="catalog-table">
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>Fields Populated</th>
+            <th>Verified</th>
+            <th>Quality Score</th>
+            <th>Decision</th>
+          </tr>
+        </thead>
+        <tbody id="catalog-tbody">
+          <tr><td colspan="5" style="color:var(--text-muted);padding:24px 16px;">Click "Process All Products" to run the catalog engine.</td></tr>
+        </tbody>
+      </table>
+      <div class="catalog-status" id="catalog-status"></div>
+    </div>
+  </div>
+</main>
+
+<div class="drawer-overlay" id="drawer-overlay" onclick="maybeCloseDrawer(event)">
+  <div class="drawer" id="drawer">
+    <div class="drawer-header">
+      <div class="drawer-title" id="drawer-title">Field Evidence</div>
+      <button class="close-btn" onclick="closeDrawer()">&times;</button>
+    </div>
+    <div id="drawer-body"></div>
+  </div>
+</div>
+
+<script>
+let products = [];
+let selectedId = null;
+let lastResult = null;
+
+async function init() {
+  try {
+    const r = await fetch('/api/products');
+    products = await r.json();
+    const el = document.getElementById('product-selector');
+    el.innerHTML = products.map(p => `
+      <button class="product-btn" id="pbtn-${p.id}" onclick="selectProduct('${p.id}')">
+        ${p.label}
+        <div class="product-meta">${p.id}</div>
+      </button>
+    `).join('');
+  } catch(e) {
+    document.getElementById('status-bar').textContent = 'Failed to load products: ' + e.message;
+    document.getElementById('status-bar').className = 'status-bar error';
+  }
+}
+
+function selectProduct(id) {
+  selectedId = id;
+  document.querySelectorAll('.product-btn').forEach(b => b.classList.remove('selected'));
+  const btn = document.getElementById('pbtn-' + id);
+  if (btn) btn.classList.add('selected');
+  document.getElementById('run-btn').disabled = false;
+  setStatus('', id + ' selected. Click "Run Intelligence Pipeline".');
+}
+
+function onContaminateChange() {
+  const on = document.getElementById('contaminate-chk').checked;
+  document.getElementById('contaminate-hint').style.display = on ? 'block' : 'none';
+}
+
+function contaminateWith() {
+  if (!document.getElementById('contaminate-chk').checked) return null;
+  const others = products.filter(p => p.id !== selectedId);
+  return others.length ? others[0].id : null;
+}
+
+function setStatus(cls, msg) {
+  const el = document.getElementById('status-bar');
+  el.className = 'status-bar' + (cls ? ' ' + cls : '');
+  el.textContent = msg;
+}
+
+async function runPipeline() {
+  if (!selectedId) return;
+  document.getElementById('run-btn').disabled = true;
+  setStatus('running', 'Running product intelligence pipeline\u2026');
+  document.getElementById('results-pane').innerHTML = '<div class="empty-state">Processing\u2026</div>';
+
+  const body = { product_id: selectedId };
+  const cw = contaminateWith();
+  if (cw) body.contaminate_with = cw;
+
+  try {
+    const r = await fetch('/api/process', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    });
+    const result = await r.json();
+    if (result.error) throw new Error(result.error);
+    lastResult = result;
+    renderResults(result, !!cw);
+    setStatus('done', 'Pipeline complete.');
+  } catch(e) {
+    setStatus('error', 'Error: ' + e.message);
+    document.getElementById('results-pane').innerHTML = '<div class="empty-state">Pipeline failed. Check server logs.</div>';
+  } finally {
+    document.getElementById('run-btn').disabled = false;
+  }
+}
+
+function renderResults(r, contaminated) {
+  const pane = document.getElementById('results-pane');
+  const q = r.final_quality;
+  const qs = r.quality_score;
+  const fq = q.coverage;
+
+  const decClass = r.decision === 'verified' ? 'verified' : 'review';
+  const decText = r.decision === 'verified' ? '\u2713 Commerce Ready' : '\u26a0 Review Required';
+  const scoreColor = qs.overall_score >= 90 ? 'green' : qs.overall_score >= 75 ? 'yellow' : 'red';
+
+  let html = '';
+
+  if (contaminated) {
+    html += `<div class="contaminate-notice">
+      \u26a0 Wrong-product evidence demo active.
+      ${r.decision !== 'verified' ? 'Evidence was rejected by provenance check &mdash; product is in review.' : 'Note: evidence may have passed if snippets overlap.'}
+    </div>`;
+  }
+
+  html += `<div class="scores-row">
+    <div class="score-card">
+      <div class="score-label">Quality Score</div>
+      <div class="score-value ${scoreColor}">${qs.overall_score}</div>
+    </div>
+    <div class="score-card">
+      <div class="score-label">Populated</div>
+      <div class="score-value">${fq.populated_fields} / ${fq.total_fields}</div>
+    </div>
+    <div class="score-card">
+      <div class="score-label">Verified</div>
+      <div class="score-value">${fq.fields_with_evidence} / ${fq.total_fields}</div>
+    </div>
+    <div class="score-card">
+      <div class="score-label">Decision</div>
+      <div style="margin-top:6px;"><span class="decision-badge ${decClass}">${decText}</span></div>
+    </div>
+  </div>`;
+
+  const val = q.validation;
+  const evOk = r.evidence ? (r.evidence.unverified === 0 && r.evidence.missing_evidence === 0) : true;
+  const checks = [
+    { label: 'Schema Validation',      ok: val.schema.valid,      errors: val.schema.errors || [] },
+    { label: 'Value Validation',       ok: val.values.valid,      errors: val.values.errors || [] },
+    { label: 'Consistency Validation', ok: val.consistency.valid, errors: val.consistency.issues || [] },
+    { label: 'Evidence Verification',  ok: evOk,                  errors: [] },
+    { label: 'Final Decision',         ok: r.decision === 'verified', errors: [] },
+  ];
+
+  html += `<div class="section panel">
+    <div class="panel-title">Validation Pipeline</div>
+    <div class="validation-list">
+      ${checks.map(c => `
+        <div>
+          <div class="validation-row">
+            <span class="check-icon">${c.ok ? '\u2713' : '\u2717'}</span>
+            <span class="check-label">${c.label}</span>
+            <span class="check-status ${c.ok ? 'pass' : 'fail'}">${c.ok ? 'Passed' : 'Failed'}</span>
+          </div>
+          ${c.errors.length ? c.errors.map(e => `<div class="validation-error">${e}</div>`).join('') : ''}
+        </div>
+      `).join('')}
+    </div>
+  </div>`;
+
+  const evMap = buildEvidenceMap(r);
+  const product = r.product;
+  const sections = [
+    { key: 'common', fields: product.common || {} },
+    { key: 'attributes', fields: product.attributes || {} },
+  ];
+
+  let rows = '';
+  for (const sec of sections) {
+    for (const [name, fd] of Object.entries(sec.fields)) {
+      if (!fd || typeof fd !== 'object') continue;
+      const val = fd.value !== undefined ? String(fd.value) : '\u2014';
+      const conf = fd.confidence || '\u2014';
+      const method = fd.method || 'source';
+      const ev = evMap[name];
+      const verified = ev ? ev.verified : !!fd.source_snippet;
+      const verIcon = verified ? '<span style="color:var(--green)">\u2713</span>' : '<span style="color:var(--red)">\u2717</span>';
+      const evBtn = ev
+        ? `<button class="evidence-btn" onclick="showEvidence('${name}')">View</button>`
+        : '<span style="color:var(--text-muted);font-size:11px;">\u2014</span>';
+
+      rows += `<tr>
+        <td style="font-weight:500;">${fmt(name)}</td>
+        <td>${val}</td>
+        <td><span class="confidence-badge ${conf}">${conf}</span></td>
+        <td><span class="method-badge ${method}">${method}</span></td>
+        <td>${verIcon}</td>
+        <td>${evBtn}</td>
+      </tr>`;
+    }
+  }
+
+  html += `<div class="section panel">
+    <div class="panel-title">Product Attributes</div>
+    <table class="attr-table">
+      <thead><tr>
+        <th>Field</th><th>Value</th><th>Confidence</th><th>Method</th><th>Verified</th><th>Evidence</th>
+      </tr></thead>
+      <tbody>${rows}</tbody>
+    </table>
+  </div>`;
+
+  pane.innerHTML = html;
+}
+
+function buildEvidenceMap(r) {
+  const map = {};
+  if (r.evidence && r.evidence.fields) {
+    for (const f of r.evidence.fields) {
+      map[f.field] = {
+        verified: f.verified,
+        value: f.value,
+        method: f.method,
+        confidence: f.confidence,
+        snippet: f.evidence ? f.evidence.snippet : null,
+        source: f.evidence ? f.evidence.source : null,
+        page: f.evidence ? f.evidence.page : null,
+      };
+    }
+  }
+  if (r.corpus_enrichment) {
+    for (const f of r.corpus_enrichment) {
+      map[f.field] = {
+        verified: f.verified,
+        value: f.value,
+        method: 'retrieved',
+        confidence: f.confidence,
+        snippet: f.source_snippet,
+        source: f.source,
+        page: f.source_page,
+        status: f.status,
+      };
+    }
+  }
+  return map;
+}
+
+function showEvidence(name) {
+  if (!lastResult) return;
+  const ev = buildEvidenceMap(lastResult)[name];
+  if (!ev) return;
+
+  document.getElementById('drawer-title').textContent = fmt(name);
+
+  const rejected = ev.status === 'invalid_source';
+  const statusColor = ev.verified ? 'var(--green)' : 'var(--red)';
+  const statusText = ev.verified
+    ? '\u2713 Verified'
+    : rejected ? '\u2717 Rejected \u2014 Wrong Source Product' : '\u2717 Not Verified';
+
+  document.getElementById('drawer-body').innerHTML = `
+    <div class="evidence-block">
+      <div class="kv-row"><span class="kv-key">Value</span><span class="kv-val">${ev.value !== undefined ? ev.value : '\u2014'}</span></div>
+      <div class="kv-row"><span class="kv-key">Confidence</span><span class="kv-val">${ev.confidence || '\u2014'}</span></div>
+      <div class="kv-row"><span class="kv-key">Method</span><span class="kv-val">${ev.method || '\u2014'}</span></div>
+      <div class="kv-row"><span class="kv-key">Source Document</span><span class="kv-val">${ev.source || '\u2014'}</span></div>
+      <div class="kv-row"><span class="kv-key">Source Page</span><span class="kv-val">${ev.page !== undefined && ev.page !== null ? ev.page : '\u2014'}</span></div>
+      <div class="kv-row"><span class="kv-key">Status</span><span class="kv-val" style="color:${statusColor};">${statusText}</span></div>
+    </div>
+    ${ev.snippet ? `<div>
+      <div class="evidence-block-label">Evidence Snippet</div>
+      <div class="evidence-snippet">&ldquo;${ev.snippet}&rdquo;</div>
+    </div>` : ''}
+    ${rejected ? `<div class="contaminate-notice">
+      Evidence was sourced from the wrong product document and was rejected by the deterministic provenance integrity check. The product has been placed in review.
+    </div>` : ''}
+  `;
+
+  document.getElementById('drawer-overlay').classList.add('open');
+}
+
+function maybeCloseDrawer(e) {
+  if (e.target === document.getElementById('drawer-overlay')) closeDrawer();
+}
+
+function closeDrawer() {
+  document.getElementById('drawer-overlay').classList.remove('open');
+}
+
+async function runCatalog() {
+  const btn = document.getElementById('catalog-run-btn');
+  btn.disabled = true;
+  const tbody = document.getElementById('catalog-tbody');
+  tbody.innerHTML = products.map(p => `
+    <tr id="crow-${p.id}">
+      <td style="font-weight:500;">${p.label}</td>
+      <td colspan="4" style="color:var(--text-muted);">Processing\u2026</td>
+    </tr>
+  `).join('');
+
+  document.getElementById('catalog-status').textContent = 'Running catalog\u2026';
+  let done = 0;
+
+  await Promise.all(products.map(async p => {
+    try {
+      const r = await fetch('/api/process', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ product_id: p.id }),
+      });
+      const result = await r.json();
+      renderCatalogRow(p, result);
+    } catch(e) {
+      const row = document.getElementById('crow-' + p.id);
+      if (row) row.innerHTML = `<td>${p.label}</td><td colspan="4" style="color:var(--red);">Error: ${e.message}</td>`;
+    }
+    done++;
+    document.getElementById('catalog-status').textContent = `${done} / ${products.length} products processed.`;
+  }));
+
+  btn.disabled = false;
+}
+
+function renderCatalogRow(p, r) {
+  const row = document.getElementById('crow-' + p.id);
+  if (!row) return;
+  const fq = r.final_quality.coverage;
+  const score = r.quality_score.overall_score;
+  const scoreClass = score >= 90 ? '' : score >= 75 ? 'yellow' : 'red';
+  const decClass = r.decision === 'verified' ? 'verified' : 'review';
+  const decText = r.decision === 'verified' ? '\u2713 Commerce Ready' : '\u26a0 Review Required';
+
+  row.innerHTML = `
+    <td style="font-weight:500;">${p.label}</td>
+    <td>${fq.populated_fields} / ${fq.total_fields}</td>
+    <td>${fq.fields_with_evidence} / ${fq.total_fields}</td>
+    <td>
+      <div class="score-bar-wrap">
+        <div class="score-bar"><div class="score-bar-fill ${scoreClass}" style="width:${score}%"></div></div>
+        <span style="font-size:12px;font-weight:600;width:32px;text-align:right;">${score}</span>
+      </div>
+    </td>
+    <td><span class="decision-badge ${decClass}">${decText}</span></td>
+  `;
+}
+
+function showView(name, btn) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('view-' + name).classList.add('active');
+  btn.classList.add('active');
+}
+
+function fmt(key) {
+  return key.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+}
+
+init();
+</script>
+</body>
+</html>

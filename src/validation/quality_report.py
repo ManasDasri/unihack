@@ -51,9 +51,15 @@ def calculate_field_metrics(product, schema):
     }
 
     for section_name in ("common", "attributes"):
-        schema_section = schema.get(section_name, {})
+        schema_section = schema.get(
+            section_name,
+            {},
+        )
 
-        if not isinstance(schema_section, dict):
+        if not isinstance(
+            schema_section,
+            dict,
+        ):
             continue
 
         for field_name in schema_section:
@@ -73,18 +79,27 @@ def calculate_field_metrics(product, schema):
             if value is not None:
                 populated_fields += 1
 
-                source_snippet = field_data.get("source_snippet")
+                source_snippet = field_data.get(
+                    "source_snippet"
+                )
 
                 if (
-                    isinstance(source_snippet, str)
+                    isinstance(
+                        source_snippet,
+                        str,
+                    )
                     and source_snippet.strip()
                 ):
                     evidence_fields += 1
 
-            confidence = field_data.get("confidence")
+                confidence = field_data.get(
+                    "confidence"
+                )
 
-            if confidence in confidence_counts:
-                confidence_counts[confidence] += 1
+                if confidence in confidence_counts:
+                    confidence_counts[
+                        confidence
+                    ] += 1
 
     coverage = (
         populated_fields / total_fields
@@ -101,9 +116,15 @@ def calculate_field_metrics(product, schema):
     return {
         "total_fields": total_fields,
         "populated_fields": populated_fields,
-        "field_coverage": round(coverage, 3),
+        "field_coverage": round(
+            coverage,
+            3,
+        ),
         "fields_with_evidence": evidence_fields,
-        "evidence_coverage": round(evidence_coverage, 3),
+        "evidence_coverage": round(
+            evidence_coverage,
+            3,
+        ),
         "confidence": confidence_counts,
     }
 
@@ -112,16 +133,18 @@ def determine_status(
     schema_result,
     value_result,
     consistency_result,
+    field_metrics,
 ):
     """
     Determine the product's overall validation status.
 
     VERIFIED:
-        All validation layers pass.
+        All validation layers pass and every schema-defined
+        field contains a value.
 
     REVIEW:
-        The product has structural/value/consistency problems
-        that require inspection.
+        The product has structural, value, consistency,
+        or completeness problems.
 
     REJECTED:
         Reserved for future hard-failure rules.
@@ -135,6 +158,12 @@ def determine_status(
         return "review"
 
     if not consistency_result["valid"]:
+        return "review"
+
+    if (
+        field_metrics["populated_fields"]
+        < field_metrics["total_fields"]
+    ):
         return "review"
 
     return "verified"
@@ -167,30 +196,64 @@ def build_quality_report(product, schema):
         schema_result,
         value_result,
         consistency_result,
+        metrics,
     )
 
     total_issues = (
-        len(schema_result.get("errors", []))
-        + len(value_result.get("errors", []))
-        + len(consistency_result.get("issues", []))
+        len(
+            schema_result.get(
+                "errors",
+                [],
+            )
+        )
+        + len(
+            value_result.get(
+                "errors",
+                [],
+            )
+        )
+        + len(
+            consistency_result.get(
+                "issues",
+                [],
+            )
+        )
     )
 
     return {
         "status": status,
         "summary": {
-            "schema_valid": schema_result["valid"],
-            "values_valid": value_result["valid"],
-            "consistency_valid": consistency_result["valid"],
+            "schema_valid": schema_result[
+                "valid"
+            ],
+            "values_valid": value_result[
+                "valid"
+            ],
+            "consistency_valid": consistency_result[
+                "valid"
+            ],
             "total_issues": total_issues,
         },
         "coverage": {
-            "total_fields": metrics["total_fields"],
-            "populated_fields": metrics["populated_fields"],
-            "field_coverage": metrics["field_coverage"],
-            "fields_with_evidence": metrics["fields_with_evidence"],
-            "evidence_coverage": metrics["evidence_coverage"],
+            "total_fields": metrics[
+                "total_fields"
+            ],
+            "populated_fields": metrics[
+                "populated_fields"
+            ],
+            "field_coverage": metrics[
+                "field_coverage"
+            ],
+            "fields_with_evidence": metrics[
+                "fields_with_evidence"
+            ],
+            "evidence_coverage": metrics[
+                "evidence_coverage"
+            ],
         },
-        "confidence": metrics["confidence"],
+        "confidence": metrics[
+            "confidence"
+        ],
         "validation": {
             "schema": schema_result,
             "values": value_result,
@@ -200,7 +263,10 @@ def build_quality_report(product, schema):
 
 
 if __name__ == "__main__":
-    SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+    SCRIPT_DIR = os.path.dirname(
+        os.path.abspath(__file__)
+    )
+
     PROJECT_ROOT = os.path.join(
         SCRIPT_DIR,
         "..",
@@ -221,9 +287,14 @@ if __name__ == "__main__":
         "skf_6205.json",
     )
 
-    schema = load_schema(schema_path)
+    schema = load_schema(
+        schema_path
+    )
 
-    with open(extracted_path, "r") as f:
+    with open(
+        extracted_path,
+        "r",
+    ) as f:
         product = json.load(f)
 
     report = build_quality_report(
@@ -231,4 +302,9 @@ if __name__ == "__main__":
         schema,
     )
 
-    print(json.dumps(report, indent=2))
+    print(
+        json.dumps(
+            report,
+            indent=2,
+        )
+    )
